@@ -157,6 +157,7 @@ keymap = [
 
     # Custom
     { on = [ "'", "'" ], run = "plugin command_palette", desc = "select and run command in command palette" },
+    { on = [ "'", "s" ], run = "shell 'start %0'",       desc = "start file from shell" },
 ]
 
 [tasks]
