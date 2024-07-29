@@ -27,25 +27,37 @@ local select_command = function()
         return fail("`command_palette` exited with error code %s", output.status.code)
     end
 
-    return output.stdout:gsub("\n$", "")
+    local result = {}
+    local command = output.stdout:gsub("\n$", "")
+    for token in string.gmatch(command, "[^%s]+") do
+        table.insert(result, token)
+    end
+    return result
+end
+
+local replace_args = function(arg)
+    local selected = selected()
+    arg = arg:gsub('%%0', hovered())
+    for i = 1,9 do
+        if selected[i] == nil then break end
+        arg = arg:gsub('%%' .. tostring(i), selected[i])
+    end
+    return arg
 end
 
 local function entry(self, args)
     local _permit = ya.hide()
-    local target = table.concat(args, ' ')
 
-    if target == nil then
-        target = select_command()
+    if #args == 0 then
+        args = select_command()
     end
-    if target ~= "" then
-        local selected = selected()
-        target = target:gsub('%%0', hovered())
-        for i = 1,9 do
-            if selected[i] == nil then break end
-            target = target:gsub('%%' .. tostring(i), selected[i])
+    local arguments = {'/c'}
+    if args[1] ~= "" then
+        for _, target in ipairs(args) do
+            table.insert(arguments, replace_args(target))
         end
-        -- ya.manager_emit('shell', { target })
-        Command("cmd"):args({'/c', target }):cwd(getcwd()):spawn():wait_with_output()
+        -- ya.manager_emit('shell', { tostring(arguments[4]) })
+        Command("cmd"):args(arguments):cwd(getcwd()):spawn():wait_with_output()
     end
 end
 
