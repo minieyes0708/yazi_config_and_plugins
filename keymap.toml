@@ -157,6 +157,7 @@ keymap = [
 
     # Custom
     { on = [ "'", "'" ], run = "plugin command_palette",                     desc = "select and run command in command palette" },
+    { on = [ "'", "x" ], run = "plugin command_palette --args='7z x %0'",    desc = "extract file with 7z" },
     { on = [ "'", "s" ], run = "plugin command_palette --args='start %0'",   desc = "start file from shell" },
     { on = [ "'", "w" ], run = "plugin command_palette --args='explorer .'", desc = "open explorer.exe" },
     { on = [ "'", "e" ], run = "plugin command_palette --args='code -r %0'", desc = "edit with code.exe" },
