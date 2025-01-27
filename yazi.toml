@@ -10,7 +10,7 @@ sort_reverse 	 = false
 sort_dir_first = true
 sort_translit  = false
 linemode       = "none"
-show_hidden    = false
+show_hidden    = true
 show_symlink   = true
 scrolloff      = 5
 mouse_events   = [ "click", "scroll" ]
@@ -28,9 +28,10 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = '${EDITOR:=vi} "$@"', desc = "$EDITOR", block = true, for = "unix" },
-	{ run = 'code %*',    orphan = true, desc = "code",           for = "windows" },
-	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
+	{ run = '${EDITOR:=vi} "$@"', block  = true, desc = "$EDITOR", for = "unix" },
+	{ run = 'nvim %*',            block  = true, desc = "nvim (block)",   for = "windows" },
+	{ run = 'code %*',            orphan = true, desc = "code",           for = "windows" },
+	{ run = 'code -w %*',         block  = true, desc = "code (block)",   for = "windows" },
 ]
 open = [
 	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
