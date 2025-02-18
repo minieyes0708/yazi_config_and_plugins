@@ -37,6 +37,7 @@ open = [
 	{ desc = "Open",           for = "linux",   run = 'xdg-open "$1"' },
 	{ desc = "Open",           for = "macos",   run = 'open "$@"' },
 	{ desc = "Start",          for = "windows", run = 'start "" "%1"', orphan = true },
+    { desc = "Zoxide add",     for = "windows", run = 'zoxide add .', block = true },
 ]
 reveal = [
 	{ desc = "Reveal",         for = "macos",   run = 'open -R "$1"' },
@@ -61,20 +62,11 @@ play = [
 rules = [
 	{ name = "*/", use = [ "edit", "open", "reveal" ] },
 
-    { mime = "inode/empty",     use = [ "edit", "reveal" ]},
-	{ mime = "text/*",          use = [ "edit", "open", "reveal" ] },
-	{ mime = "image/*",         use = [ "open", "open", "reveal" ] },
-	{ mime = "{audio,video}/*", use = [ "play", "open", "reveal" ] },
-	{ mime = "inode/x-empty",   use = [ "edit", "open", "reveal" ] },
-
 	{ mime = "application/{,g}zip", use = [ "extract", "open", "reveal" ] },
 	{ mime = "application/{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "open", "reveal" ] },
 	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "open", "reveal" ] },
 
-	{ mime = "*/javascript", use = [ "edit", "open", "reveal" ] },
-	{ mime = "application/{json,x-ndjson}", use = [ "edit", "open", "reveal" ] },
-
-	{ name = "*", use = [ "open", "reveal" ] },
+	{ name = "*", use = [ "edit", "open", "reveal" ] },
 ]
 
 [tasks]
